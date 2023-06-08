@@ -1,15 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import config from '../config.js';
 
-const app = initializeApp({
-  apiKey: "XXXXXXXX",
-  authDomain: "XXXXXXXX",
-  projectId: "XXXXXXXX",
-  storageBucket: "XXXXXXXX",
-  messagingSenderId: "XXXXXXXX",
-  appId: "XXXXXXXX"
-});
+const app = initializeApp(config);
 
 const auth = getAuth(app);
 const firestore = getFirestore(app);
