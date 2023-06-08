@@ -6,7 +6,7 @@ export const getAllProducts = async (request, response) => {
   let products = [];
   const querySnapshot = await getDocs(collection(firestore, "products"));
   
-  if(querySnapshot.size > 1) {
+  if(querySnapshot.size > 0) {
     querySnapshot.forEach((doc) => {
       products.push({
         id: doc.id,
@@ -30,5 +30,4 @@ export const getProduct = async (request, response) => {
   } else {
     response.status(404).json({message : "Oops! Looks like your product went on a little adventure without us."})
   }
-
 }
