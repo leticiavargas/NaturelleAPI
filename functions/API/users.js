@@ -1,6 +1,6 @@
 import { auth, firestore } from '../util/firebase.js';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { collection, getDocs, query, where, doc, setDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where, doc, setDoc, getDoc } from 'firebase/firestore';
 
 import { validateCreateUserData } from '../util/validators.js';
 
@@ -50,3 +50,31 @@ export const createUser = async (request, response) => {
 
   }
 };
+
+export const getAllUsers = async(request, response) => {
+  let users = [];
+  const querySnapshot = await getDocs(collection(firestore, "users"));
+  
+  if(querySnapshot.size > 0) {
+    querySnapshot.forEach((doc) => {
+      users.push({
+        id: doc.id,
+        ...doc.data()
+      })
+    })
+    response.status(200).json(users);
+  } else {
+    response.status(404).json({ message: "Uh-oh! It looks like the user directory took an unscheduled break."})
+  } 
+}
+
+export const getUser = async (request, response) => {
+  const userId = request.params.userId;
+  const docSnap = await getDoc(doc(firestore, "users", userId));
+
+  if(docSnap.exists()) {
+    response.status(200).json(docSnap.data());
+  } else {
+    response.status(404).json({ message: "Oh dear! It seems like our elusive friend has pulled a disappearing act. "})
+  }
+}

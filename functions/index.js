@@ -3,7 +3,7 @@ import  functions from 'firebase-functions';
 import  express from 'express';
 
 import { loginUser } from './API/login.js';
-import { createUser } from './API/users.js';
+import { createUser, getAllUsers, getUser } from './API/users.js';
 import { getAllProducts, getProduct } from './API/products.js';
 import { getReview, getAllReviewsByProduct } from "./API/reviews.js";
 import { getAllCategories } from './API/categories.js';
@@ -14,6 +14,8 @@ const app = express();
 // Users
 app.post('/login', loginUser);
 app.post('/users', createUser);
+app.get('/users', getAllUsers);
+app.get('/users/:userId', getUser);
 
 // Products
 app.get('/products', getAllProducts);
