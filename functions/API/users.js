@@ -31,7 +31,6 @@ export const createUser = async (request, response) => {
   if (querySnapshot.size > 0) {
     return response.status(400).json({ username: 'this email is already taken' });
   } else {
-    console.log("CADASTRAR O USUÁRIO MONGÃO");
     try {
       const credential = await createUserWithEmailAndPassword(auth, newUser.email, password);
       const userUid = credential?.user.uid;
