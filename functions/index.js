@@ -5,7 +5,7 @@ import  express from 'express';
 import { loginUser } from './API/login.js';
 import { createUser, getAllUsers, getUser } from './API/users.js';
 import { getAllProducts, getProduct } from './API/products.js';
-import { getReview, getAllReviewsByProduct } from "./API/reviews.js";
+import { getReview, getAllReviewsByProduct, createReview } from "./API/reviews.js";
 import { getAllCategories } from './API/categories.js';
 
 const app = express();
@@ -25,6 +25,7 @@ app.get('/products/:id', getProduct);
 app.get('/products/:id/reviews', getAllReviewsByProduct);
 app.get('/products/:id/reviews/:reviewId', getReview);
 app.get('/reviews/:reviewId', getReview);
+app.post('/reviews', createReview);
 
 //Categories
 app.get('/categories', getAllCategories);
